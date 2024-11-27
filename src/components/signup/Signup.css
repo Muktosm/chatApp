@@ -1,0 +1,59 @@
+.signup {
+  @apply w-full   py-[100px] pl-[185px] pr-[215px];
+  .container {
+    @apply flex items-center justify-between;
+    .formField {
+      @apply w-[470px];
+      .formHeading {
+        @apply font-DMsans text-brandColor font-bold text-[42px] leading-[52px] tracking-[-0.4px];
+      }
+      .terms {
+        @apply font-DMsans text-textColor font-normal text-[16px] leading-[16px] mt-[20px] mb-[49px];
+      }
+      .inputField {
+        @apply w-full flex flex-col gap-[35px];
+        .emailInput,
+        .passwordInput {
+          @apply flex flex-col gap-[19px];
+          label {
+            @apply font-DMsans font-bold text-[14px] leading-[14px] tracking-[2px] text-brandColor;
+          }
+        }
+        .emailInput {
+          input {
+            @apply w-full outline-none border-[2px] pl-[24px] border-[#EBEAED] rounded-[100px] placeholder:font-DMsans placeholder:font-medium placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-[#EBEAED]  py-[20px];
+          }
+          .error {
+            @apply placeholder:text-red-300 placeholder:text-[16px];
+          }
+        }
+        .passwordInput {
+          > div {
+            @apply w-full flex items-center justify-between gap-[20px];
+            .input {
+              @apply w-full flex items-center outline-none border-[2px] px-[24px] border-[#EBEAED] rounded-[100px] placeholder:font-DMsans placeholder:font-medium placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-[#EBEAED]  py-[20px];
+              input {
+                @apply outline-none w-full   border-[#EBEAED] rounded-[100px] placeholder:font-DMsans placeholder:font-medium placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-[#EBEAED];
+              }
+              svg {
+                @apply text-[#89888a];
+              }
+              .error {
+                @apply placeholder:text-red-300 placeholder:text-[16px]  ;
+              }
+            }
+          }
+        }
+      }
+      .links {
+        @apply flex mt-[40px]  items-center gap-[24px];
+        > p {
+          @apply font-DMsans font-bold text-[14px] leading-[26px] tracking-[2px] text-[#EBEAED];
+        }
+        > svg {
+          @apply font-normal text-[24px] leading-[38px] text-[#EBEAED]  transition-all duration-300 hover:text-[#959496];
+        }
+      }
+    }
+  }
+}
