@@ -7,6 +7,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Bounce, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { currentUser } from "../../features/counter/counterSlice";
+import { getDatabase, ref, set } from "firebase/database";
 const Login = () => {
   // general variable
   const [email, setEmail] = useState("");
@@ -15,10 +16,12 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const [loader, setLoader] = useState(false);
   const currentUserSlice = useSelector((state) => state.counter.value);
+  console.log("🚀 ~ Login ~ currentUserSlice:", currentUserSlice)
   const dispatch = useDispatch();
-  console.log("🚀 ~ Login ~ currentUserSlice:", currentUserSlice);
+
   // firebase variable
   const auth = getAuth();
+  const db = getDatabase();
   // function part
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,16 +49,30 @@ const Login = () => {
             transition: Bounce,
           });
           localStorage.setItem("currentUser", JSON.stringify(user));
+
           dispatch(
-            currentUser(
-              localStorage.getItem("currentUser"),
-              JSON.parse(currentUser)
-            )
+            currentUser(JSON.parse(localStorage.getItem("currentUser")))
           );
+          set(ref(db, "users/"), {
+            displayName: currentUserSlice.displayName,
+          });
+         
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          console.log("🚀 ~ handleSubmit ~ errorCode:", errorCode,errorMessage);
+          toast.error("Something went wrong", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
         });
     }
   };
