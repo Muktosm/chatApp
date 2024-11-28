@@ -39,7 +39,7 @@
                 @apply text-[#89888a];
               }
               .error {
-                @apply placeholder:text-red-300 placeholder:text-[16px]  ;
+                @apply placeholder:text-red-300 placeholder:text-[16px];
               }
             }
           }
@@ -52,6 +52,18 @@
         }
         > svg {
           @apply font-normal text-[24px] leading-[38px] text-[#EBEAED]  transition-all duration-300 hover:text-[#959496];
+        }
+      }
+      .alreadySignedIn {
+        @apply font-DMsans text-textColor font-normal text-[24px] leading-[16px] mt-[40px] mb-[49px] text-center;
+        a {
+          @apply text-teal-400;
+        }
+      }
+      .needToSignIn {
+        @apply font-DMsans text-textColor font-normal text-[24px] leading-[16px] mt-[40px] mb-[49px] text-center;
+        a {
+          @apply text-teal-400;
         }
       }
     }

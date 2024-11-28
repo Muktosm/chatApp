@@ -8,6 +8,7 @@ import { Bounce, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { currentUser } from "../../features/counter/counterSlice";
 import { getDatabase, ref, set } from "firebase/database";
+import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   // general variable
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const [loader, setLoader] = useState(false);
   const currentUserSlice = useSelector((state) => state.counter.value);
-  console.log("🚀 ~ Login ~ currentUserSlice:", currentUserSlice)
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // firebase variable
@@ -53,15 +54,21 @@ const Login = () => {
           dispatch(
             currentUser(JSON.parse(localStorage.getItem("currentUser")))
           );
-          set(ref(db, "users/"), {
-            displayName: currentUserSlice.displayName,
+          set(ref(db, "users/" + user.uid), {
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
           });
-         
+          navigate("/");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log("🚀 ~ handleSubmit ~ errorCode:", errorCode,errorMessage);
+          console.log(
+            "🚀 ~ handleSubmit ~ errorCode:",
+            errorCode,
+            errorMessage
+          );
           toast.error("Something went wrong", {
             position: "top-right",
             autoClose: 5000,
@@ -134,6 +141,11 @@ const Login = () => {
                 <FaGooglePlus />
               </div>
             </form>
+            <div className="needToSignIn">
+              <p>
+                Have an accoutn? <Link to={"/signup"}>Sign Up</Link>{" "}
+              </p>
+            </div>
           </div>
         </div>
       </section>

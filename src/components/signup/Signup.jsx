@@ -11,6 +11,7 @@ import {
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
 import { Bounce, Flip, toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 const Signup = () => {
   // variable part
   const [email, setEmail] = useState("");
@@ -22,6 +23,7 @@ const Signup = () => {
   const [passwordError, setPasswordError] = useState("");
   const [passwordRepeatError, setPasswordRepeatError] = useState("");
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
 
   // firebase variable
   const auth = getAuth();
@@ -70,6 +72,7 @@ const Signup = () => {
               });
             console.log("🚀 ~ .then ~ user:", user);
             setLoader(false); // changing the state to false
+            navigate("/login");
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -199,6 +202,11 @@ const Signup = () => {
                 <FaGooglePlus />
               </div>
             </form>
+            <div className="alreadySignedIn">
+              <p>
+                Have an accoutn? <Link to={"/login"}>Log In</Link>{" "}
+              </p>
+            </div>
           </div>
         </div>
       </section>
